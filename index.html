@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PricePulse — Smart Price Comparison for Electronics</title>
+<meta name="description" content="Compare prices across Amazon, Flipkart, and Croma. Track price drops, find the best deals on electronics in India.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Ambient Background -->
+<div class="bg-grid"></div>
+<div class="bg-glow bg-glow-1"></div>
+<div class="bg-glow bg-glow-2"></div>
+
+<!-- Navigation -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <span class="logo-icon">⚡</span>
+      <span class="logo-text">Price<span class="logo-accent">Pulse</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="#products" class="nav-link active">Products</a>
+      <a href="#categories" class="nav-link">Categories</a>
+      <a href="#deals" class="nav-link">Top Deals</a>
+      <a href="#about" class="nav-link">About</a>
+    </div>
+    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#products" class="mobile-link" onclick="closeMobileMenu()">Products</a>
+  <a href="#categories" class="mobile-link" onclick="closeMobileMenu()">Categories</a>
+  <a href="#deals" class="mobile-link" onclick="closeMobileMenu()">Top Deals</a>
+  <a href="#about" class="mobile-link" onclick="closeMobileMenu()">About</a>
+</div>
+
+<!-- Hero Section -->
+<header class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">🇮🇳 India's Smart Price Tracker</div>
+    <h1 class="hero-title">
+      Never Overpay for<br>
+      <span class="gradient-text">Electronics</span> Again
+    </h1>
+    <p class="hero-desc">Compare real-time prices across Amazon, Flipkart & Croma. Find the lowest price, track drops, and shop smarter.</p>
+    <div class="hero-search">
+      <div class="search-box">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" id="searchInput" placeholder="Search products... (e.g., iPhone 15, Galaxy S24)" autocomplete="off">
+        <button class="search-btn" onclick="handleSearch()">Compare</button>
+      </div>
+      <div class="quick-tags" id="quickTags">
+        <span class="tag" onclick="quickSearch('iPhone 15')">iPhone 15</span>
+        <span class="tag" onclick="quickSearch('Samsung Galaxy S24')">Galaxy S24</span>
+        <span class="tag" onclick="quickSearch('MacBook Air')">MacBook Air</span>
+        <span class="tag" onclick="quickSearch('Sony WH-1000XM5')">Sony WH-1000XM5</span>
+        <span class="tag" onclick="quickSearch('iPad')">iPad</span>
+        <span class="tag" onclick="quickSearch('PS5')">PS5</span>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num" id="statProducts">0</span><span class="stat-label">Products Tracked</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><span class="stat-num">3</span><span class="stat-label">Stores Compared</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><span class="stat-num">₹0</span><span class="stat-label">Avg. Savings</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- Categories -->
+<section class="section" id="categories">
+  <div class="container">
+    <h2 class="section-title">Browse by Category</h2>
+    <div class="categories-grid">
+      <button class="cat-card active" data-cat="all" onclick="filterCategory('all')">
+        <span class="cat-icon">🔥</span><span class="cat-name">All</span>
+      </button>
+      <button class="cat-card" data-cat="smartphones" onclick="filterCategory('smartphones')">
+        <span class="cat-icon">📱</span><span class="cat-name">Smartphones</span>
+      </button>
+      <button class="cat-card" data-cat="laptops" onclick="filterCategory('laptops')">
+        <span class="cat-icon">💻</span><span class="cat-name">Laptops</span>
+      </button>
+      <button class="cat-card" data-cat="audio" onclick="filterCategory('audio')">
+        <span class="cat-icon">🎧</span><span class="cat-name">Audio</span>
+      </button>
+      <button class="cat-card" data-cat="tvs" onclick="filterCategory('tvs')">
+        <span class="cat-icon">📺</span><span class="cat-name">TVs</span>
+      </button>
+      <button class="cat-card" data-cat="gaming" onclick="filterCategory('gaming')">
+        <span class="cat-icon">🎮</span><span class="cat-name">Gaming</span>
+      </button>
+      <button class="cat-card" data-cat="tablets" onclick="filterCategory('tablets')">
+        <span class="cat-icon">📟</span><span class="cat-name">Tablets</span>
+      </button>
+      <button class="cat-card" data-cat="wearables" onclick="filterCategory('wearables')">
+        <span class="cat-icon">⌚</span><span class="cat-name">Wearables</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Products Grid -->
+<section class="section" id="products">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title" id="productsTitle">All Products</h2>
+      <div class="sort-controls">
+        <button class="sort-btn active" id="sortLow" onclick="sortBy('asc')">Lowest First</button>
+        <button class="sort-btn" id="sortHigh" onclick="sortBy('desc')">Highest First</button>
+        <button class="sort-btn" id="sortSavings" onclick="sortBy('savings')">Best Savings</button>
+      </div>
+    </div>
+    <div class="products-grid" id="productsGrid"></div>
+    <p class="no-results hidden" id="noResults">No products found. Try a different search term.</p>
+  </div>
+</section>
+
+<!-- Top Deals -->
+<section class="section deals-section" id="deals">
+  <div class="container">
+    <h2 class="section-title">🔥 Top Deals Right Now</h2>
+    <p class="section-desc">Products with the biggest price drops across stores</p>
+    <div class="deals-grid" id="dealsGrid"></div>
+  </div>
+</section>
+
+<!-- About -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="about-card">
+      <h2 class="section-title">How PricePulse Works</h2>
+      <div class="features-grid">
+        <div class="feature">
+          <div class="feature-icon">🔍</div>
+          <h3>Search</h3>
+          <p>Search for any electronics product — smartphones, laptops, headphones, and more.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">📊</div>
+          <h3>Compare</h3>
+          <p>Instantly compare prices across Amazon, Flipkart, and Croma side-by-side.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">💰</div>
+          <h3>Save</h3>
+          <p>Find the lowest price and see exactly how much you save compared to other stores.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🛒</div>
+          <h3>Buy</h3>
+          <p>Click through directly to the store with the best price and purchase instantly.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <span class="logo-icon">⚡</span>
+      <span class="logo-text">Price<span class="logo-accent">Pulse</span></span>
+      <p class="footer-desc">Smart price comparison for electronics in India.</p>
+    </div>
+    <div class="footer-links">
+      <a href="https://suyashvakhariya.in" target="_blank">Portfolio</a>
+      <a href="https://github.com/Izumi6/Price-Pulse" target="_blank">GitHub</a>
+      <a href="https://linkedin.com/in/suyashvakhariya" target="_blank">LinkedIn</a>
+    </div>
+    <p class="footer-copy">Built by <a href="https://suyashvakhariya.in" target="_blank">Suyash Vakhariya</a> · 2026</p>
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
