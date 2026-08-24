@@ -2,6 +2,8 @@
 
 > Compare real-time prices across Amazon, Flipkart & Croma. Find the best deals, save money.
 
+🔗 **Live Demo:** [izumi6.github.io/Price-Pulse](https://izumi6.github.io/Price-Pulse/)
+
 ![PricePulse](https://img.shields.io/badge/Status-Live-00d4ff?style=for-the-badge&labelColor=06060b)
 ![HTML](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
